@@ -1,2 +1,2 @@
 # LLama-meshgen
-LLama-mesh implementation based on Blender add-on mesh gen
+LLama-mesh implementation for generative design
