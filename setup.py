@@ -15,7 +15,9 @@ setup(
                       'matplotlib',
                       'numpy'                     
                       ],
-
+    dependency_links=[
+        'https://abetlen.github.io/llama-cpp-python/whl/cu121'
+    ],
     classifiers=[
         'Development Status :: 1 - Alpha',
         'Intended Audience :: Science/Research',
