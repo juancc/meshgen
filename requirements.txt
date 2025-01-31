@@ -1,4 +1,4 @@
-llama_cpp_python==0.2.90
+llama_cpp_python==0.2.90 --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu121
 huggingface_hub
 open3d
 matplotlib
