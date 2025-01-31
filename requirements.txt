@@ -1,3 +1,5 @@
 llama_cpp_python==0.2.90
 huggingface_hub
 open3d
+matplotlib
+numpy
