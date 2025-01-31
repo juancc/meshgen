@@ -7,7 +7,7 @@ setup(
     url='https://github.com/juancc/LLama-meshgen',
     author='Juan Carlos Arbelaez',
     author_email='jarbel16@eafit.edu.co',
-    packages=['pyexample'],
+    packages=['meshgen', 'meshgen.auxfun', 'meshgen.download', 'meshgen.globals', 'meshgen.meshgen'],
     install_requires=['llama_cpp_python==0.2.90',
                       'huggingface_hub',
                       'open3d',
