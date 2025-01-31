@@ -9,15 +9,12 @@ setup(
     author_email='jarbel16@eafit.edu.co',
     license= '',
     packages=['meshgen'],
-    install_requires=['llama_cpp_python==0.2.90',
+    install_requires=[
                       'huggingface_hub',
                       'open3d',
                       'matplotlib',
                       'numpy'                     
                       ],
-    dependency_links=[
-        'https://abetlen.github.io/llama-cpp-python/whl/cu121'
-    ],
     classifiers=[
         'Development Status :: 1 - Alpha',
         'Intended Audience :: Science/Research',
