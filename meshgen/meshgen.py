@@ -4,34 +4,36 @@ Load model and generate alternatives
 
 JCA
 """
+import os
 from pathlib import Path
-
-import llama_cpp
 import random
 
+import meshgen.globals as gb
+
+import llama_cpp
 import open3d as o3d
 import numpy as np
-
-
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.pyplot as plt
 
 
 
-class MesgGen():
+class MeshGen():
     def __init__(self, 
-                 model_path, 
+                 model_path,
+                 quality, 
                  n_ctx=4096, 
                  verbose=False, 
                  seed=1234, 
                  output_path='generated'):
         
-        print(' - Alternatives will be saved on: {output_path}')
+        print(f' - Alternatives will be saved on: {output_path}')
         Path(output_path).mkdir(parents=True, exist_ok=True)
         self.output_path = output_path
 
+        filepath = os.path.join(model_path, gb.MODELS[quality])
         self.llm = llama_cpp.Llama(
-            model_path = model_path,
+            model_path = filepath,
             n_gpu_layers=-1,
             seed=seed,
             n_ctx=n_ctx,
