@@ -7,6 +7,7 @@ JCA
 import os
 from pathlib import Path
 import random
+from datetime import datetime
 
 import meshgen.globals as gb
 
@@ -27,7 +28,10 @@ class MeshGen():
                  seed=1234, 
                  output_path='generated'):
         
-        p = Path(output_path)
+        # Create output directory with time stamp
+        date_time = datetime.fromtimestamp(timestamp)
+        timestamp = date_time.strftime("%d-%m-%Y_%H-%M-%S")
+        p = Path(output_path).join(timestamp)
         p.mkdir(parents=True, exist_ok=True)
         self.output_path = str(p.absolute())
         print(f' - Alternatives will be saved on: {self.output_path}')
