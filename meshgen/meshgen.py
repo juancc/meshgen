@@ -28,12 +28,10 @@ class MeshGen():
                  seed=1234, 
                  output_path='generated'):
         
-        # Create output directory with time stamp
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        p = Path(output_path).joinpath(timestamp)
-        p.mkdir(parents=True, exist_ok=True)
-        self.output_path = str(p.absolute())
-        print(f' - Alternatives will be saved on: {self.output_path}')
+        # Output directory each time generate is excecuted
+        # a new folder with timestamp is create in here
+        self.main_output_path = Path(output_path)
+        print(f' - Alternatives will be saved on: {self.main_output_path}')
 
         filepath = os.path.join(model_path, gb.MODELS[quality])
         self.llm = llama_cpp.Llama(
@@ -48,7 +46,9 @@ class MeshGen():
     def plot_obj(self, obj_filename, view_rot=(150,-30, 80), fig_size=(4, 4), show=True):
         """Plot saved OBJ file"""
         # Load mesh
-        filepath = f'{self.output_path}/{obj_filename}'
+        # filepath = f'{self.output_path}/{obj_filename}'
+        filepath = str(self.output_path.joinpath(obj_filename).absolute())
+
         mesh = o3d.io.read_triangle_mesh(filepath)
         if not mesh.has_vertex_normals():
             mesh.compute_vertex_normals()
@@ -88,7 +88,8 @@ class MeshGen():
         ax.view_init(*view_rot)
 
         im_name = obj_filename.split('.')[0]
-        plt.savefig(f'{self.output_path}/{im_name}')
+        savepath= str(self.output_path.joinpath(im_name).absolute())
+        plt.savefig(savepath)
 
         if show: plt.show()
 
@@ -97,7 +98,9 @@ class MeshGen():
         """Saves mesh as OBJ and plots it as a static render"""
         # Write OBJ file
         obj_filename = f'shape{idx}.obj'
-        filepath = f'{self.output_path}/{obj_filename}'
+        # filepath = f'{str(self.output_path)}/{obj_filename}'
+        filepath = str(self.output_path.joinpath(obj_filename).absolute())
+
         with open(filepath, 'w') as myfile:
             myfile.write("\n".join(mesh_lines))
 
@@ -138,6 +141,12 @@ class MeshGen():
 
     def generate(self, prompt, variations=1, temperature=0.9):
         """"Generate different design alternatives using user prompt."""
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        self.output_path = self.main_output_path.joinpath(timestamp)
+        self.output_path.mkdir(parents=True, exist_ok=True)
+        print(f'Alternatives saved in: {self.output_path.absolute()}')
+
+
         messages = [
                 {"role": "system", "content": "You are a helpful assistant that can generate 3D obj files."},
                 {"role": "user", "content": prompt}
