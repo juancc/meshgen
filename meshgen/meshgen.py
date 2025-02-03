@@ -28,8 +28,10 @@ class MeshGen():
                  output_path='generated'):
         
         print(f' - Alternatives will be saved on: {output_path}')
-        Path(output_path).mkdir(parents=True, exist_ok=True)
-        self.output_path = output_path
+        p = Path(output_path)
+        p.mkdir(parents=True, exist_ok=True)
+        self.output_path = str(p)
+
 
         filepath = os.path.join(model_path, gb.MODELS[quality])
         self.llm = llama_cpp.Llama(
