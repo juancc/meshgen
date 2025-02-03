@@ -27,11 +27,10 @@ class MeshGen():
                  seed=1234, 
                  output_path='generated'):
         
-        print(f' - Alternatives will be saved on: {output_path}')
         p = Path(output_path)
         p.mkdir(parents=True, exist_ok=True)
-        self.output_path = str(p)
-
+        self.output_path = str(p.absolute())
+        print(f' - Alternatives will be saved on: {self.output_path}')
 
         filepath = os.path.join(model_path, gb.MODELS[quality])
         self.llm = llama_cpp.Llama(
@@ -99,7 +98,7 @@ class MeshGen():
         with open(filepath, 'w') as myfile:
             myfile.write("\n".join(mesh_lines))
 
-        self.plot_obj(self.output_path, obj_filename)
+        self.plot_obj(obj_filename)
 
 
 
