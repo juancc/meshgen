@@ -29,8 +29,7 @@ class MeshGen():
                  output_path='generated'):
         
         # Create output directory with time stamp
-        date_time = datetime.fromtimestamp(timestamp)
-        timestamp = date_time.strftime("%d-%m-%Y_%H-%M-%S")
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         p = Path(output_path).join(timestamp)
         p.mkdir(parents=True, exist_ok=True)
         self.output_path = str(p.absolute())
