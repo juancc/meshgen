@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import random
 from datetime import datetime
+from time import time
 
 import meshgen.globals as gb
 
@@ -153,8 +154,9 @@ class MeshGen():
             ]
 
         idx = 0
+        print(f'Generation started: {variations} alternatives')
         for i in range(variations):
-            print(f'Generating mesh {idx}')
+            init = time()
             messages = [
                 {"role": "system", "content": "You are a helpful assistant that can generate 3D obj files."},
                 {"role": "user", "content": prompt}
@@ -167,3 +169,5 @@ class MeshGen():
                 # print(f'Plotting Mesh {idx}')
                 self.process_mesh_static(idx, mesh_lines)
             idx += 1
+            print(f'Alternative {idx} ({round(time()-init, 2)}s)')
+            
