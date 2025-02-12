@@ -105,7 +105,10 @@ class MeshGen():
         with open(filepath, 'w') as myfile:
             myfile.write("\n".join(mesh_lines))
 
-        self.plot_obj(obj_filename)
+        try:
+            self.plot_obj(obj_filename)
+        except Exception as e:
+            print(f'Error ploting file {obj_filename}. Err: {e}')
 
 
 
